@@ -1,8 +1,8 @@
 <?php
 
-namespace IBMWatson\Config;
+namespace IBMWatson;
 
-class Api {
+class Config {
 
 	protected $config_file;
 
