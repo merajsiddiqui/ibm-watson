@@ -1,0 +1,22 @@
+{
+    "name": "root/watson",
+    "description": "PHP IBM watson API",
+    "authors": [
+        {
+            "name": "Meraj Ahmad Siddiqui",
+            "email": "meraj.siddiqui@rankwatch.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev" : {
+		"phpunit/phpunit" : "5.5.*",
+		"xicrow/php-debug" : "^2.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"IBMWatson\\" : "src/IBMWatson/"
+		}
+	}
+}

@@ -1,0 +1,52 @@
+composer.phar
+/vendor/
+.DS_Store
+
+#INI files
+*.ini
+
+#ENV Files
+*.env
+
+#vendor
+/vendor/*
+
+#issues
+issues.md
+
+#composer
+*.lock
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock
+
+# Ignoring Logs file
+logs/*
+
+# Ignoring Gearman config, copy from gearman.ini.sample
+gearman.ini
+
+# Ignoring supervisor config, copy from supervisor.conf.sample
+supervisor.conf
+
+# Ignoring any files with log generated
+*.log*
+
+# Ignoring any err.log files generated
+*.err.log*
+
+# Ignoring conf files for supervisor processes running
+.supervisor/*.conf
+
+.DS_Store
+
+.env
+
+.php_cs.cache
+
