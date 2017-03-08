@@ -49,6 +49,6 @@ class Authenticate {
 				$this->password,
 			]]
 		);
-		return $response->getHeaders();
+		return $response->getBody();
 	}
 }
