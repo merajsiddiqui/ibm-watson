@@ -4,7 +4,7 @@
  * @author Meraj Ahmad Siddiqui <merajsiddiqui@outlook.com>
  */
 
-namespace IBMWatson\Speech;
+namespace IBMWatson\Speech\Voice;
 use IBMWatson\Authenticate;
 
 class Voice {
@@ -34,14 +34,17 @@ class Voice {
 	}
 
 	public function filterVoice($filter_options) {
-		$filtered_voice = ["msg" => "No data found, try another filter options"];
-		$voice_data = json_decode($this->available_voices, true)["voices"];
-		for ($i = 0; $i < count($voice_data); $i++) {
-			$difference = array_diff_assoc($filter_options, $voice_data[$i]);
-			if (!$difference) {
-				$filtered_voice[] = $voice_data[$i];
-				if (isset($filtered_voice["msg"])) {
-					unset($filtered_voice["msg"]);
+		$err_code = (!$filter_options) ? "no_filter" : "filter_not_found";
+		$filtered_voice = ["msg" => $this->errorMessage($err_code)];
+		if ($filter_options) {
+			$voice_data = json_decode($this->available_voices, true)["voices"];
+			for ($i = 0; $i < count($voice_data); $i++) {
+				$difference = array_diff_assoc($filter_options, $voice_data[$i]);
+				if (!$difference) {
+					$filtered_voice[] = $voice_data[$i];
+					if (isset($filtered_voice["msg"])) {
+						unset($filtered_voice["msg"]);
+					}
 				}
 			}
 		}
@@ -50,5 +53,13 @@ class Voice {
 
 	public function setVoicePerson($voice_detail) {
 		$this->speech_voice = $voice_detail;
+	}
+
+	protected function errorMessage($err_code) {
+		$error_message = [
+			"no_filter" => "No Filter Options Were Provided",
+			"filter_not_found" => "No data found, Modify Your filter Option and try",
+		];
+		return $error_message[$err_code];
 	}
 }
