@@ -17,14 +17,20 @@ class Voice {
 
 	public $available_voices;
 
+	public $speech_voice;
+
 	public function __construct($configuration_file) {
 		$this->voice = new Authenticate($configuration_file);
 
 	}
 
-	public function getAvailableVoice($filter = false) {
+	/**
+	 * This method will get all voice available in IBM watson platform
+	 * @return array 	voice available
+	 */
+	public function getAvailableVoice() {
 		$this->available_voices = $this->voice->authorize($this->api_version . "/" . $this->api_method)->getContents();
-		return $this->available_voices;
+		return json_decode($this->available_voices, true);
 	}
 
 	public function filterVoice($filter_options) {
@@ -40,5 +46,9 @@ class Voice {
 			}
 		}
 		return $filtered_voice;
+	}
+
+	public function setVoicePerson($voice_detail) {
+		$this->speech_voice = $voice_detail;
 	}
 }
