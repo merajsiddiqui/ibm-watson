@@ -83,9 +83,12 @@ class Voice {
 	 */
 	protected function errorMessage($err_code) {
 		$error_message = [
+			"unknown" => "unknown error occured Please create an issue on https://github.com/merajsiddiqui/ibm-watson/issues",
 			"no_filter" => "No Filter Options Were Provided",
 			"filter_not_found" => "No data found, Modify Your filter Option and try",
 		];
-		return $error_message[$err_code];
+		return (isset($error_message[$err_code]))
+		? $error_message[$err_code]
+		: $error_message["unknown"];
 	}
 }

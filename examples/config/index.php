@@ -8,7 +8,7 @@ $api_credintial_json_file = dirname(dirname(__DIR__)) . "/config/text_to_speech.
 $configure_api = new Config($api_credintial_json_file);
 //authenticate using credntials
 
-$filter = ["gender" => "femele"];
+$filter = [];
 
 $voice = new Voice\Voice($configure_api);
 $available_voices = $voice->getAvailableVoice();
