@@ -98,4 +98,11 @@ class Voice extends \IBMWatson\Platform {
 		$default_voice_detail = $this->makeRequest($request_uri);
 		return json_decode($default_voice_detail, true);
 	}
+
+	public function createAudio($txt) {
+		$synthesizer = new Synthesis();
+		$synthesizer->voice = ($this->speech_voice["name"]) ?: $this->default_voice;
+		$synthesizer->audio_format = "audio/wav";
+		return $synthesizer->textToAudio($txt);
+	}
 }

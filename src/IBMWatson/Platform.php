@@ -10,49 +10,48 @@ class Platform {
 	 * UserName for the service
 	 * @var string
 	 */
-	private $username;
+	private static $username;
 	/**
 	 * Password for the same
 	 * @var string
 	 */
-	private $password;
+	private static $password;
 	/**
 	 * API endpointt
 	 * @var string
 	 */
-	protected $url;
+	protected static $url;
 	/**
-	 * [__construct description]
+	 * API url to connect
 	 * @param object $config Object of configuration
 	 */
 
 	public $method;
 
-	private $version;
+	private static $version;
 
 	public function configurationProvider($config) {
-		$auth_credentials = $config->getCredentials();
+		$auth_credentials = Config::getCredentials();
 		$this->setCredentials($auth_credentials);
-		$this->version = $config->api_version;
+		self::$version = Config::$api_version;
 	}
 
 	public function setCredentials($credential_file) {
 		$credentials = file_get_contents($credential_file);
 		$auth_data = json_decode($credentials, true);
 		foreach ($auth_data as $auth_param => $auth_value) {
-			$this->$auth_param = $auth_value;
+			self::$$auth_param = $auth_value;
 		}
 	}
 
 	public function makeRequest($method, $request_method = "GET") {
-
 		$http = new Client();
 		$response = $http->request(
 			$request_method,
-			$this->url . $this->version . "$method",
+			self::$url . self::$version . "$method",
 			["auth" => [
-				$this->username,
-				$this->password,
+				self::$username,
+				self::$password,
 			]]
 		);
 		return $response->getBody()->getContents();
