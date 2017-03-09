@@ -23,25 +23,20 @@ class Voice {
 	}
 
 	public function getAvailableVoice($filter = false) {
-		$voice = $this->voice->authorize($this->api_version . "/" . $this->api_method)->getContents();
-		$this->voice = $voice;
-		if ($filter) {
-			return $this->filterVoice($filter);
-		} else {
-			return $voice;
-		}
+		$this->available_voices = $this->voice->authorize($this->api_version . "/" . $this->api_method)->getContents();
+		return $this->available_voices;
 	}
 
-	protected function filterVoice($options) {
-		$filtered_voice = [];
-		$voice_data = json_decode($this->voice, true)["voices"];
+	public function filterVoice($filter_options) {
+		$filtered_voice = ["msg" => "No data found, try another filter options"];
+		$voice_data = json_decode($this->available_voices, true)["voices"];
 		for ($i = 0; $i < count($voice_data); $i++) {
-			$found = false;
-			foreach ($options as $filter_param => $filter_value) {
-				$found = ($voice_data[$i][$filter_param] == $filter_value && $found != false) ? true : false;
-			}
-			if ($found) {
+			$difference = array_diff_assoc($filter_options, $voice_data[$i]);
+			if (!$difference) {
 				$filtered_voice[] = $voice_data[$i];
+				if (isset($filtered_voice["msg"])) {
+					unset($filtered_voice["msg"]);
+				}
 			}
 		}
 		return $filtered_voice;
