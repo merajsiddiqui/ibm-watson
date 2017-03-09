@@ -44,7 +44,7 @@ class Platform {
 		}
 	}
 
-	public function makeRequest($method, $request_method = "GET") {
+	public function makeRequest($method, $request_method = "GET", $other_params = []) {
 		$http = new Client();
 		$response = $http->request(
 			$request_method,
@@ -52,7 +52,8 @@ class Platform {
 			["auth" => [
 				self::$username,
 				self::$password,
-			]]
+			]],
+			$other_params
 		);
 		return $response->getBody()->getContents();
 	}

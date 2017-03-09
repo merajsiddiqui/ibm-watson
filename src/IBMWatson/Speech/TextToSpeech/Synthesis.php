@@ -26,7 +26,7 @@ class Synthesis extends \IBMWatson\Platform {
 	 * Audio Output
 	 * @var bytes
 	 */
-	public $synthesized_text;
+	public $output_file_name;
 	/**
 	 * This method will convert text into audio
 	 * @param  string $text Text to be synthesized
@@ -34,7 +34,8 @@ class Synthesis extends \IBMWatson\Platform {
 	 */
 	public function textToAudio($text) {
 		$requset_uri = $this->buildGetSynthesisUri($text);
-		$audio_data = $this->makeRequest($requset_uri);
+		$output = ($this->output_file_name) ?: time();
+		$audio_data = $this->makeRequest($requset_uri, $output . ".wav");
 		return $audio_data;
 	}
 	/**
