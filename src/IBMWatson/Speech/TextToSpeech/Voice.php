@@ -4,15 +4,9 @@
  * @author Meraj Ahmad Siddiqui <merajsiddiqui@outlook.com>
  */
 
-namespace IBMWatson\Speech\Voice;
-use IBMWatson\Authenticate;
+namespace IBMWatson\Speech\TextToSpeech;
 
-class Voice {
-	/**
-	 * API version
-	 * @var string
-	 */
-	public $api_version = "v1";
+class Voice extends \IBMWatson\Platform {
 	/**
 	 * Method to be called
 	 * @var string
@@ -33,10 +27,14 @@ class Voice {
 	 * @var array
 	 */
 	public $speech_voice;
+	/**
+	 * Default voice person name
+	 * @var string
+	 */
+	public $default_voice = "en-US_MichaelVoice";
 
 	public function __construct($configuration_file) {
-		$this->voice = new Authenticate($configuration_file);
-
+		$this->configurationProvider($configuration_file);
 	}
 
 	/**
@@ -44,7 +42,7 @@ class Voice {
 	 * @return array 	voice available
 	 */
 	public function getAvailableVoice() {
-		$this->available_voices = $this->voice->authorize($this->api_version . "/" . $this->api_method)->getContents();
+		$this->available_voices = $this->makeRequest($this->api_method);
 		return json_decode($this->available_voices, true);
 	}
 	/**
@@ -90,5 +88,14 @@ class Voice {
 		return (isset($error_message[$err_code]))
 		? $error_message[$err_code]
 		: $error_message["unknown"];
+	}
+	/**
+	 * This method returns the default voice used by IBM Watson
+	 * @return array Default voice detail
+	 */
+	public function getDefaultVoice() {
+		$request_uri = $this->api_method . "/" . $this->default_voice;
+		$default_voice_detail = $this->makeRequest($request_uri);
+		return json_decode($default_voice_detail, true);
 	}
 }

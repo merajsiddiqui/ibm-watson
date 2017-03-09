@@ -4,7 +4,7 @@ namespace IBMWatson;
 
 use GuzzleHttp\Client;
 
-class Authenticate {
+class Platform {
 
 	/**
 	 * UserName for the service
@@ -25,9 +25,15 @@ class Authenticate {
 	 * [__construct description]
 	 * @param object $config Object of configuration
 	 */
-	public function __construct($config) {
+
+	public $method;
+
+	private $version;
+
+	public function configurationProvider($config) {
 		$auth_credentials = $config->getCredentials();
 		$this->setCredentials($auth_credentials);
+		$this->version = $config->api_version;
 	}
 
 	public function setCredentials($credential_file) {
@@ -38,17 +44,17 @@ class Authenticate {
 		}
 	}
 
-	public function authorize($method) {
+	public function makeRequest($method, $request_method = "GET") {
 
 		$http = new Client();
 		$response = $http->request(
-			"GET",
-			$this->url . "/$method",
+			$request_method,
+			$this->url . $this->version . "$method",
 			["auth" => [
 				$this->username,
 				$this->password,
 			]]
 		);
-		return $response->getBody();
+		return $response->getBody()->getContents();
 	}
 }
