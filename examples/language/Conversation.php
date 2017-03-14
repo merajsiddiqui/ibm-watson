@@ -14,6 +14,7 @@ new Authenticate($config);
 /**
  * Using Workspace
  */
+use IBMWatson\Language\Conversation\Intents;
 use IBMWatson\Language\Conversation\Message;
 use IBMWatson\Language\Conversation\Workspace;
 
@@ -50,4 +51,7 @@ $message = [
 ];
 
 $new_message = $messanger->sendMessage($workspace_id, $message);
-var_dump($new_message);
+
+$intents = new Intents();
+$all_intents = $intents->get($workspace_id, true);
+var_dump($all_intents);
