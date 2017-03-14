@@ -28,7 +28,7 @@ class Platform {
 
 	public $method;
 
-	private static $version;
+	public static $version;
 
 	public function configurationProvider($config) {
 		$auth_credentials = Config::getCredentials();

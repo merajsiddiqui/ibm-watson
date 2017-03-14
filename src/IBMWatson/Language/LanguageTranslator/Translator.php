@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @author Meraj Ahmad Siddiqui <merajsiddiqui@outlook.com>
+ */
+namespace IBMWatson\Language\LanguageTranslator;
+
+class Translator extends \IBMWatson\Platform {
+
+	/**
+	 * API method url to request
+	 * @var string
+	 */
+	public $api_method = "translate";
+	/**
+	 * API version as in API refrence
+	 * @var string
+	 */
+	public $api_version = "/v2/";
+	/**
+	 * Language source from the language to be converted
+	 * @var string
+	 */
+	public $source_language;
+	/**
+	 * Language to Which to translate
+	 * @var string
+	 */
+	public $target_language;
+	/**
+	 * Content to be translated
+	 * @var string
+	 */
+	public $content;
+	/**
+	 * Construct to make credentials available for requests
+	 * @param string $configuration_file resource containing auth details
+	 */
+	public function __construct($configuration_file) {
+		$this->configurationProvider($configuration_file);
+		self::$version = $this->api_version;
+	}
+	/**
+	 * Setting language for translation
+	 * @param array $language_code containing source and target language
+	 */
+	public function setLanguage($language_code) {
+		$this->source_language = $language_code["from"];
+		$this->target_language = $language_code["to"];
+	}
+	/**
+	 * buildRequest query to make request to translate the content
+	 */
+	public function buildRequestQuery() {
+		//translate?source=en&target=es&text=hello"
+		$request_query = $this->api_method;
+		$request_query .= "?source=" . $this->source_language;
+		$request_query .= "&target=" . $this->target_language;
+		$request_query .= "&text=" . $this->content;
+		return $request_query;
+	}
+	/**
+	 * This method is responsible to translate the content
+	 * @param  string $content Content to be translated
+	 * @return string          translated content
+	 */
+	public function translate($content) {
+		$this->content = $content;
+		$request_uri = $this->buildRequestQuery();
+		$translated_content = $this->makeRequest($request_uri);
+		return $translated_content;
+	}
+
+	public function getSupportedLanguage() {
+		$request_uri = "identifiable_languages";
+		return $this->makeRequest($request_uri);
+	}
+}
