@@ -42,7 +42,7 @@ class Voice extends \IBMWatson\Platform {
 	 * @return array 	voice available
 	 */
 	public function getAvailableVoice() {
-		$this->available_voices = $this->makeRequest($this->api_method);
+		$this->available_voices = $this->getRequest($this->api_method);
 		return json_decode($this->available_voices, true);
 	}
 	/**
@@ -95,7 +95,7 @@ class Voice extends \IBMWatson\Platform {
 	 */
 	public function getDefaultVoice() {
 		$request_uri = $this->api_method . "/" . $this->default_voice;
-		$default_voice_detail = $this->makeRequest($request_uri);
+		$default_voice_detail = $this->getRequest($request_uri);
 		return json_decode($default_voice_detail, true);
 	}
 

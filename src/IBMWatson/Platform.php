@@ -26,9 +26,18 @@ class Platform {
 	 * @param object $config Object of configuration
 	 */
 
-	public $method;
-
 	public static $version;
+
+	/**
+	 * Data to be posted
+	 * @var array
+	 */
+	public $post_data;
+	/**
+	 * Request headers to be sent along
+	 * @var array
+	 */
+	public $request_headers;
 
 	public function configurationProvider($config) {
 		$auth_credentials = Config::getCredentials();
@@ -44,17 +53,49 @@ class Platform {
 		}
 	}
 
-	public function makeRequest($method, $request_method = "GET", $other_params = []) {
-		$http = new Client();
-		$response = $http->request(
-			$request_method,
-			self::$url . self::$version . "$method",
-			["auth" => [
+	public function setRequestHeaders($headers) {
+		$this->request_headers = $headers;
+	}
+
+	public function requestData($data) {
+		$this->post_data = $data;
+	}
+
+	public function getRequest($request_uri) {
+		$request_params = [
+			"auth" => [
 				self::$username,
 				self::$password,
-			]],
-			$other_params
+			],
+		];
+		$http = new Client();
+		$response = $http->request(
+			"GET",
+			self::$url . self::$version . "$request_uri",
+			$request_params
 		);
+		return $response->getBody()->getContents();
+	}
+	public function postRequest($request_uri) {
+		$request_params = [
+			"auth" => [
+				self::$username,
+				self::$password,
+			],
+		];
+		if ($this->request_headers) {
+			$request_params["headers"] = $this->request_headers;
+		}
+
+		$http = new Client();
+		$request = $http->post(
+			self::$url . self::$version . "$request_uri",
+			$request_params
+		);
+		if ($this->post_data) {
+			$request->setBody($this->post_data);
+		}
+		$response = $request->send();
 		return $response->getBody()->getContents();
 	}
 }

@@ -67,12 +67,12 @@ class Translator extends \IBMWatson\Platform {
 	public function translate($content) {
 		$this->content = $content;
 		$request_uri = $this->buildRequestQuery();
-		$translated_content = $this->makeRequest($request_uri);
+		$translated_content = $this->getRequest($request_uri);
 		return $translated_content;
 	}
 
 	public function getSupportedLanguage() {
 		$request_uri = "identifiable_languages";
-		return $this->makeRequest($request_uri);
+		return $this->getRequest($request_uri);
 	}
 }
