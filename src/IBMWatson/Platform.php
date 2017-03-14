@@ -86,16 +86,14 @@ class Platform {
 		if ($this->request_headers) {
 			$request_params["headers"] = $this->request_headers;
 		}
-
+		if ($this->post_data) {
+			$request_params["json"] = $this->post_data;
+		}
 		$http = new Client();
-		$request = $http->post(
+		$response = $http->post(
 			self::$url . self::$version . "$request_uri",
 			$request_params
 		);
-		if ($this->post_data) {
-			$request->setBody($this->post_data);
-		}
-		$response = $request->send();
 		return $response->getBody()->getContents();
 	}
 }
