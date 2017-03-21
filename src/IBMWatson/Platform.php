@@ -38,6 +38,11 @@ class Platform {
 	 * @var array
 	 */
 	public $request_headers;
+	/**
+	 * File to be posted
+	 * @var resource/string
+	 */
+	public $post_file;
 
 	public function configurationProvider($config) {
 		$auth_credentials = Config::getCredentials();
@@ -61,12 +66,22 @@ class Platform {
 		$this->post_data = $data;
 	}
 
+	public function attachFile($file_data) {
+		$name = array_keys($file_data)[0];
+		$resource = $file_data[$name];
+		$this->post_file = [
+			"name" => $name,
+			"contents" => file_get_contents($resource),
+		];
+	}
+
 	public function getRequest($request_uri) {
 		$request_params = [
 			"auth" => [
 				self::$username,
 				self::$password,
 			],
+			'http_errors' => false,
 		];
 		$http = new Client();
 		$response = $http->request(
@@ -74,7 +89,7 @@ class Platform {
 			self::$url . self::$version . "$request_uri",
 			$request_params
 		);
-		return $response->getBody()->getContents();
+		return $this->responseHandler($response);
 	}
 	public function postRequest($request_uri) {
 		$request_params = [
@@ -82,12 +97,16 @@ class Platform {
 				self::$username,
 				self::$password,
 			],
+			'http_errors' => false,
 		];
 		if ($this->request_headers) {
 			$request_params["headers"] = $this->request_headers;
 		}
 		if ($this->post_data) {
 			$request_params["json"] = $this->post_data;
+		}
+		if ($this->post_file) {
+			$request_params["multipart"] = [$this->post_file];
 		}
 		$http = new Client();
 		$response = $http->post(

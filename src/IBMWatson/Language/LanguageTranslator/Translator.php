@@ -70,9 +70,50 @@ class Translator extends \IBMWatson\Platform {
 		$translated_content = $this->getRequest($request_uri);
 		return $translated_content;
 	}
-
+	/**
+	 * Get all supported language by IBM watson
+	 * @return string json data
+	 */
 	public function getSupportedLanguage() {
 		$request_uri = "identifiable_languages";
 		return $this->getRequest($request_uri);
+	}
+	/**
+	 * List all models supported by IBM watson
+	 * @return strong json data of all models
+	 */
+	public function listModels() {
+		$request_uri = "models";
+		return $this->getRequest($request_uri);
+	}
+	/**
+	 * Listing All models supporting conversation
+	 * @return string json data for all conversational models
+	 */
+	public function listConversationalModels() {
+		$domain = "conversational";
+		$all_models_json = $this->listModels();
+		$all_models_array = json_decode($all_models_json, true)["models"];
+		$conversational_models = [];
+		for ($i = 0; $i < count($all_models_array); $i++) {
+			if ($all_models_array[$i]["domain"] == $domain) {
+				$conversational_models[] = $all_models_array[$i];
+			}
+		}
+		return json_encode($conversational_models, JSON_PRETTY_PRINT);
+	}
+	/**
+	 * Create new model to be used by IBM watson
+	 * @param  array $model_detail model parameters
+	 * @return string               identifier of the new model
+	 */
+	public function createModel($model_detail) {
+		$glossary = ["forced_glossary" => $model_detail["glossary"]];
+		unset($model_detail["glossary"]);
+		$this->requestData($model_detail);
+		$this->attachFile($glossary);
+		$request_uri = "models";
+		$response = $this->postRequest($request_uri);
+		return $response;
 	}
 }

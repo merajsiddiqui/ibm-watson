@@ -35,4 +35,8 @@ class Intents extends \IBMWatson\Platform {
 		$intent_response = $this->getRequest($request_uri);
 		return $intent_response;
 	}
+
+	public function create($intent_details) {
+
+	}
 }
