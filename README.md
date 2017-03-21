@@ -16,7 +16,7 @@ composer require merajsiddiqui/ibm-watson
 
 ### Signup IBM watson  and get credentials to use API
 
-/config/conversation.json
+/config/credential.json
 
 ```markdown
 {
@@ -32,7 +32,7 @@ Authenticating to Service
 
 include dirname(__DIR__). "/vendor/autoload.php";
 use IBMWatson\Config;
-$api_credintial_json_file = "/config/conversation.json";
+$api_credintial_json_file = "/config/credential.json";
 $config = Config::init($api_credintial_json_file);
 
 ```
