@@ -14,7 +14,7 @@ Installation : `composer require merajsiddiqui/ibm-watson`
 
 **Dependency** : Guzzle ^6.2
 **Dependency Dev**: -     phpunit/phpunit: 5.5.*
-    				-	  xicrow/php-debug: ^2.0
+-	  xicrow/php-debug: ^2.0
 
 ```
 
