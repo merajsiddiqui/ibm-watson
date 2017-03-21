@@ -26,6 +26,7 @@ class Understanding extends \IBMWatson\Platform {
 		$data_type = array_keys($data)[0];
 		$data_val = $data[$data_type];
 		$features[$data_type] = $data_val;
+
 		$this->requestData($features);
 		$analyzed_response = $this->getRequest($request_uri);
 		return $analyzed_response;

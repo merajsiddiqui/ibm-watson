@@ -21,7 +21,7 @@ $features_to_be_analyzed = [
 ];
 //data to be analyzed
 $data_type = "url"; //url, text, html
-$data_value = "www.ibm.com";
+$data_value = "www.rankwatch.com";
 $analyze_data = [$data_type => $data_value];
 //analyze this
 
