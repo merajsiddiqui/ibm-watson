@@ -1,12 +1,13 @@
 {
     "name": "merajsiddiqui/ibm-watson",
-    "description": "PHP IBM watson API",
+    "description": "IBM Waatson SDK PHP",
     "authors": [
         {
             "name": "Meraj Ahmad Siddiqui",
             "email": "merajsiddiqui@outlook.com"
         }
     ],
+    "license": "GNU General Public License v3.0",
     "require": {
         "guzzlehttp/guzzle": "^6.2"
     },
