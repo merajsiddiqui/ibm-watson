@@ -9,12 +9,37 @@ You are free to fork this, use it, and create and issue, I also request you to  
 It is advised to install it using composer.
 
 ```markdown
-Installation : `composer require merajsiddiqui/ibm-watson`
 
+`composer require merajsiddiqui/ibm-watson`
 
-**Dependency** : Guzzle ^6.2
-**Dependency Dev**: -        phpunit/phpunit: 5.5.*
-   -	 xicrow/php-debug: ^2.0
+```
+
+### Signup IBM watson  and get credentials to use API
+
+/config/conversation.json
+
+```markdown
+{
+  "url": "https://gateway.watsonplatform.net/conversation/api",
+  "username": "some random string password provided",
+  "password": "randompassword"
+}
+```
+Authenticating to Service
+
+```markdown
+<?php
+
+include dirname(__DIR__). "/vendor/autoload.php";
+
+//Provide jspn file to config
+
+use IBMWatson\Config;
+
+//json file containing url, username and password for the service
+
+$api_credintial_json_file = "/config/conversation.json";
+$config = Config::init($api_credintial_json_file);
 
 ```
 
