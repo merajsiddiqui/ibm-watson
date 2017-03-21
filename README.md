@@ -1,8 +1,8 @@
 ## IBM Watson PHP SDK
 
-[IBM Watson](https://github.com/merajsiddiqui/ibm-watson/edit/master/README.md) is PHP SDK of using IBM watson services provided by IBM. This sdk is unofficial. I personally wish to develop this and i will maintain is as long as possible.
+[IBM Watson](https://github.com/merajsiddiqui/ibm-watson) is PHP SDK of using IBM watson services provided by IBM. This sdk is unofficial. I personally wish to develop this and i will maintain is as long as possible.
 
-You are free to fork this, use it, and create and issue, I also request you to  fork , contribute and create a pull request [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+You are free to fork this, use it, and create and issue, I also request you to  fork , contribute and create a pull request.
 
 ### Installation
 
@@ -39,7 +39,7 @@ $config = Config::init($api_credintial_json_file);
 
 Using services:
 
-##Translator Service
+###Translator Service
 
 Authentication:
 
@@ -50,10 +50,6 @@ use IBMWatson\Language\LanguageTranslator\Translator;
 $translator = new Translator($config);
 
 ```
-
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
 
 ### Support or Contact
 
