@@ -1,37 +1,26 @@
-## Welcome to GitHub Pages
+## IBM Watson PHP SDK
 
-You can use the [editor on GitHub](https://github.com/merajsiddiqui/ibm-watson/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+[IBM Watson](https://github.com/merajsiddiqui/ibm-watson/edit/master/README.md) is PHP SDK of using IBM watson services provided by IBM. This sdk is unofficial. I personally wish to develop this and i will maintain is as long as possible.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+You are free to fork this, use it, and create and issue, I also request you to  fork , contribute and create a pull request [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### Installation
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+It is advised to install it using composer.
 
 ```markdown
-Syntax highlighted code block
+Installation : `composer require merajsiddiqui/ibm-watson`
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+**Dependency** : Guzzle ^6.2
+**Dependency Dev**: -     phpunit/phpunit: 5.5.*
+    				-	  xicrow/php-debug: ^2.0
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/merajsiddiqui/ibm-watson/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Having any trouble mail me at : merajsiddiqui@outlook.com or create an issue. Always use IBM watson API refrence for using this sdk.
