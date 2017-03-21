@@ -39,7 +39,7 @@ $config = Config::init($api_credintial_json_file);
 
 Using services:
 
-###Translator Service
+### Translator Service
 
 Authentication:
 
