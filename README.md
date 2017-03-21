@@ -10,7 +10,7 @@ It is advised to install it using composer.
 
 ```markdown
 
-`composer require merajsiddiqui/ibm-watson`
+composer require merajsiddiqui/ibm-watson
 
 ```
 
@@ -20,7 +20,7 @@ It is advised to install it using composer.
 
 ```markdown
 {
-  "url": "https://gateway.watsonplatform.net/conversation/api",
+  "url": "https://gateway.watsonplatform.net/language-translator/api",
   "username": "some random string password provided",
   "password": "randompassword"
 }
@@ -31,17 +31,26 @@ Authenticating to Service
 <?php
 
 include dirname(__DIR__). "/vendor/autoload.php";
-
-//Provide jspn file to config
-
 use IBMWatson\Config;
-
-//json file containing url, username and password for the service
-
 $api_credintial_json_file = "/config/conversation.json";
 $config = Config::init($api_credintial_json_file);
 
 ```
+
+Using services:
+
+##Translator Service
+
+Authentication:
+
+```markdown
+
+use IBMWatson\Language\LanguageTranslator\Translator;
+//$config as above
+$translator = new Translator($config);
+
+```
+
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
