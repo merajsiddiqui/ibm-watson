@@ -32,7 +32,7 @@ class Platform {
 	 * Data to be posted
 	 * @var array
 	 */
-	public $post_data;
+	public $request_data;
 	/**
 	 * Request headers to be sent along
 	 * @var array
@@ -63,7 +63,7 @@ class Platform {
 	}
 
 	public function requestData($data) {
-		$this->post_data = $data;
+		$this->request_data = $data;
 	}
 
 	public function attachFile($file_data) {
@@ -76,22 +76,23 @@ class Platform {
 	}
 
 	public function getRequest($request_uri) {
-		$request_params = [
-			"auth" => [
-				self::$username,
-				self::$password,
-			],
-			'http_errors' => false,
-		];
 		$http = new Client();
-		$response = $http->request(
-			"GET",
+		$response = $http->get(
 			self::$url . self::$version . "$request_uri",
-			$request_params
+			$this->requestDataBuilder()
 		);
-		return $this->responseHandler($response);
+		return $response->getBody()->getContents();
 	}
 	public function postRequest($request_uri) {
+		$http = new Client();
+		$response = $http->post(
+			self::$url . self::$version . "$request_uri",
+			$this->requestDataBuilder()
+		);
+		return $response->getBody()->getContents();
+	}
+
+	protected function requestDataBuilder() {
 		$request_params = [
 			"auth" => [
 				self::$username,
@@ -102,32 +103,20 @@ class Platform {
 		if ($this->request_headers) {
 			$request_params["headers"] = $this->request_headers;
 		}
-		if ($this->post_data) {
-			$request_params["json"] = $this->post_data;
+		if ($this->request_data) {
+			$request_params["json"] = $this->request_data;
 		}
 		if ($this->post_file) {
 			$request_params["multipart"] = [$this->post_file];
 		}
-		$http = new Client();
-		$response = $http->post(
-			self::$url . self::$version . "$request_uri",
-			$request_params
-		);
-		return $response->getBody()->getContents();
+		return $request_params;
 	}
 
 	public function deleteRequest($request_uri) {
-		$request_params = [
-			"auth" => [
-				self::$username,
-				self::$password,
-			],
-			'http_errors' => false,
-		];
 		$http = new Client();
 		$response = $http->delete(
 			self::$url . self::$version . "$request_uri",
-			$request_params
+			$this->requestDataBuilder()
 		);
 		return $response->getBody()->getContents();
 	}
