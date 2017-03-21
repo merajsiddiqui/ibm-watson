@@ -116,4 +116,24 @@ class Translator extends \IBMWatson\Platform {
 		$response = $this->postRequest($request_uri);
 		return $response;
 	}
+	/**
+	 * Get model details by model id
+	 * @param  string $model_id model identifier
+	 * @return json           model details for give identifier
+	 */
+	public function getModelDetails($model_id) {
+		$request_uri = "models/$model_id";
+		$model_detail = $this->getRequest($request_uri);
+		return $model_detail;
+	}
+	/**
+	 * Delete a model by providing a model identifier
+	 * @param  string $model_id model identifier
+	 * @return string           ok else error message
+	 */
+	public function deleteModel($model_id) {
+		$request_uri = "models/$model_id";
+		$deleted = $this->deleteRequest($request_uri);
+		return $deleted;
+	}
 }

@@ -115,4 +115,20 @@ class Platform {
 		);
 		return $response->getBody()->getContents();
 	}
+
+	public function deleteRequest($request_uri) {
+		$request_params = [
+			"auth" => [
+				self::$username,
+				self::$password,
+			],
+			'http_errors' => false,
+		];
+		$http = new Client();
+		$response = $http->delete(
+			self::$url . self::$version . "$request_uri",
+			$request_params
+		);
+		return $response->getBody()->getContents();
+	}
 }
